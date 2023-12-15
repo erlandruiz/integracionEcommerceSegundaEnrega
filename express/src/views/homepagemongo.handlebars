@@ -1,0 +1,35 @@
+<h2>Productos en Mongo Atlas:</h2>
+
+<ul>
+    {{#each productos}}
+        <li>
+            {{this.title}} {{this.description}}  {{this.price}}  {{this.thumbnail}}  {{this.stock}}  {{this.category}} - <strong>Code:</strong> <i>{{this.code}}</i>
+        </li>
+    {{/each}}
+</ul>
+<br>
+
+<br>
+{{!-- Modificando para que los datos incrementen de  /api/productsmongo/ --}}
+<a href="/api/productsmongo/?pagina=1&limit={{limit}}&sort={{sortOptions}}">Pag.1</a>
+
+{{#if hasPrevPage}}
+<a href="/api/productsmongo/?pagina={{prevPage}}&limit={{limit}}&sort={{sortDirection}}">Pag. Ant.</a>
+{{else}}
+<span>Pag. Ant.</span>
+{{/if}}
+
+{{#if hasNextPage}}
+<a href="/api/productsmongo/?pagina={{nextPage}}&limit={{limit}}&sort={{sortDirection}}">Pag. Sig.</a>
+{{else}}
+<span>Pag. Sig.</span>
+{{/if}}
+
+
+
+<a href="/api/productsmongo/?pagina={{totalPages}}&limit={{limit}}&sort={{sortDirection}}">Ult. Pag.</a>
+
+<br>
+<h4>Total Pages = {{totalPages}}</h4>
+<br>
+<h4>Pages = {{page}}</h4>
