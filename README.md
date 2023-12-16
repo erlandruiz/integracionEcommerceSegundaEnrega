@@ -54,7 +54,8 @@ Ordena en forma descendente por precio
 #  http://localhost:8080/api/cartsmongo/657c723ad87fb3caa089e5d4
 ejemnplo Consigue por el metodo Get de POSTMAN el carrito con cid=657c723ad87fb3caa089e5d4
 
-
+# http://localhost:8080/products
+para ver el paginado de todos los productos y poder ver un producto.
 
 # http://localhost:8080/api/cartsmongo/657c8f29fd01996207396277/product/6572a3511e95089a27bee8df
 Ejemplo para pasar por agregar al carrito con cid = 657c8f29fd01996207396277  el producto con pid =6572a3511e95089a27bee8df   si ya existe incrementa qty en 1 , si no existe agrega el producto al carrito con qty 1
@@ -100,21 +101,5 @@ Ejemplo para actualizar solo la cantidad  de un producto que exite en el carrito
 
 Ejemplo para vaciar el carrito con id = 6576b78cf8806e21842156f6
 
-
-
-
-# http://localhost:8080/api/productsmongo
-Para ver los valores de status, payload, totalPages, prevPage, nextPage, page, hasPrevPage, hasNextPage, prevLink, nextLink
-
-
-
-
-
-# http://localhost:8080/api/productsmongo?limit=3
-
-Ejemplo para aplicar el limite desde de 3
-
-
-
-# http://localhost:8080/api/productsmongo?limit=3&pagina=2&sort=-1
-ejemplo para poner en modo descendente el precio
+# http://localhost:8080/carts/657cd0ca6dab0e5581321d7c
+Ejemplo para ver los productos que tiene un carrito con parametro enviado por req.params

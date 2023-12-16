@@ -1,0 +1,49 @@
+<h2>Producto</h2>
+<a href="/realtimeproducts">Realtime Products</a>
+<hr />
+<a href="/chat">Chat</a>
+<hr />
+<a href="/products">Products</a>
+<hr />
+<ul>
+  {{!-- {{#each existe}} --}}
+  <div>
+
+    <h3>ID: {{_id}}</h3>
+    <h3>Título: {{title}}</h3>
+
+    <h3>Descripción: {{description}}</h3>
+    <h3>Precio: {{price}}</h3>
+    <h3>Imagen: {{thumbnail}}</h3>
+    <h3>Código: {{code}}</h3>
+    <h3>Stock: {{stock}}</h3>
+    <h3>Categoría: {{category}}</h3>
+    <h3>Status: {{status}}</h3>
+    <br />
+    <hr />
+  </div>
+
+  <div>
+  <h3>Listado ID de carritos</h3>
+  <span>NOTA:Solo debe agregar un solo carrito</span>
+  <br>
+  <br>
+  <form>
+    {{#each carts}}
+      <label>
+        <input type="checkbox" name="cartIds" value="{{this._id}}">
+        ID: {{this._id}}
+      </label>
+      <br>
+    {{/each}}
+ 
+    <button type="submit">Argregar al carrito</button>
+  </form>
+</div>
+
+
+
+</ul>
+
+{{! <script src="socket.io/socket.io.js"></script>
+<script src="assets/scripts/home.js"></script> }}

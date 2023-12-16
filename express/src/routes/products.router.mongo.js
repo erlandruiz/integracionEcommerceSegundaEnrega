@@ -10,7 +10,7 @@ export const router=Router()
 const productManagerMongo = new ProductManagerMongo()
 
 
-// router.get('/products', async(req,res)=>{
+// router.get('/products', async(req,res)=>{//Product antiguo
 
 //   let productos = []
 //   try {
@@ -33,14 +33,14 @@ router.get('/', async(req,res)=>{
   let pagina = 1
   if(req.query.pagina){  //capturamos el  valor de pagina 
     pagina= req.query.pagina 
-    console.log(pagina)
+    // console.log(pagina)
   }
 
 
   let limit =10;
   if(req.query.limit){  //capturamos el  valor de limit 
     limit = req.query.limit
-    console.log(limit)
+    // console.log(limit)
   }
 
 
@@ -52,7 +52,7 @@ router.get('/', async(req,res)=>{
   // Verifica si se proporciona el parámetro de consulta 'querydata'
   if (req.query.querydata) {
     // Asigna el valor de 'querydata' al campo 'category' en el objeto de consulta
-    // query = { category: req.query.querydata };
+    
     query = { category: req.query.querydata };
     console.log(query);
   }
@@ -81,7 +81,7 @@ router.get('/', async(req,res)=>{
 
         let {totalPages, page,  hasPrevPage, hasNextPage, prevPage, nextPage, totalDocs} = productos
 
-        console.log(totalPages, hasPrevPage, hasNextPage, prevPage, nextPage, totalDocs)
+        // console.log(totalPages, hasPrevPage, hasNextPage, prevPage, nextPage, totalDocs)
          
         let prevLink, nextLink // agregamos los enlaces de pagina 
         //usamos ternario 
