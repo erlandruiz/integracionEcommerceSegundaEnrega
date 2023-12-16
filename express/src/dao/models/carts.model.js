@@ -5,24 +5,24 @@ const cartsCollection = "carts";
 
 const cartsEsquema = new mongoose.Schema(
   {
-//**************PROFE*********** */
-    // products:[
-    //   {
-    //     productId:{
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       ref:   'products' // este es igual al nombre del modelo de productos (productos.moldes.js)
-    //     },
-    //     qty:Number
-    //   }
-    // ],
-//************************* */
 
-    //***********MIOOO************** */
+
+
+    //***********Viendo el video clase 17************** */
     products: {
-      type: Array,
-      default: [] // Esto inicializará el array como vacío si no se proporciona ningún valor
+    
+     type:[
+      {
+        productId:{
+          type: mongoose.Schema.Types.ObjectId,
+          ref:   'products'
+        },
+        qty:Number
+      }
+     ]
     },
-    //************************* */
+
+
 
 
 
@@ -39,5 +39,16 @@ const cartsEsquema = new mongoose.Schema(
     strict: true, //sirve para agregar propiedades que no estan definidas dentro el esquema , cuando esta en false se pueden agregar
   }
 );
+cartsEsquema.pre('findOne', function(){
+  this.populate(
+    {path:'products.productId'}
+  ).lean()
+})
+cartsEsquema.pre('find', function(){
+  this.populate(
+    {path:'products.productId'}
+  ).lean()
+})
+
 
 export const cartsModelo = mongoose.model(cartsCollection, cartsEsquema);

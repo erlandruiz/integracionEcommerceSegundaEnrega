@@ -19,12 +19,10 @@ Pagina para ver los productos en Mongo Atlas.
 Para buscar carrito por ID
 
 
-# http://localhost:8080/api/cartsmongo   usando el metodo POST , se crea un carrito
+# http://localhost:8080/api/cartsmongo   
+usando el metodo POST , se crea un carrito , en el req.body colocar 
        {   
-               "products":[
-                          
-
-               ]
+               
              
        }
 
@@ -52,6 +50,14 @@ Ordena en forma ascendete por  precio.
 # http://localhost:8080/api/productsmongo/?pagina=1&limit=4&sort=-1
 Ordena en forma descendente por precio
 
+
+#  http://localhost:8080/api/cartsmongo/657c723ad87fb3caa089e5d4
+ejemnplo Consigue por el metodo Get de POSTMAN el carrito con cid=657c723ad87fb3caa089e5d4
+
+
+
+# http://localhost:8080/api/cartsmongo/657c8f29fd01996207396277/product/6572a3511e95089a27bee8df
+Ejemplo para pasar por agregar al carrito con cid = 657c8f29fd01996207396277  el producto con pid =6572a3511e95089a27bee8df   si ya existe incrementa qty en 1 , si no existe agrega el producto al carrito con qty 1
 
 # http://localhost:8080/api/cartsmongo/6574d5bb25b51f4d783ee633/products/6572a2ea1e95089a27bee8dc
 ejemplo de como eleminar un producto de un carrrito
@@ -93,3 +99,22 @@ Ejemplo para actualizar solo la cantidad  de un producto que exite en el carrito
 # http://localhost:8080/api/cartsmongo/6576b78cf8806e21842156f6
 
 Ejemplo para vaciar el carrito con id = 6576b78cf8806e21842156f6
+
+
+
+
+# http://localhost:8080/api/productsmongo
+Para ver los valores de status, payload, totalPages, prevPage, nextPage, page, hasPrevPage, hasNextPage, prevLink, nextLink
+
+
+
+
+
+# http://localhost:8080/api/productsmongo?limit=3
+
+Ejemplo para aplicar el limite desde de 3
+
+
+
+# http://localhost:8080/api/productsmongo?limit=3&pagina=2&sort=-1
+ejemplo para poner en modo descendente el precio

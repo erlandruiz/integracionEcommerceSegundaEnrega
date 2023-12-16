@@ -10,21 +10,24 @@ export const router=Router()
 const productManagerMongo = new ProductManagerMongo()
 
 
-router.get('/products', async(req,res)=>{
+// router.get('/products', async(req,res)=>{
 
-  let productos = []
-  try {
+//   let productos = []
+//   try {
     
-    productos = await productManagerMongo.getProductsMongo()
+//     productos = await productManagerMongo.getProductsMongo()
     
-  } catch (error) {
-    console.log(error.messsage)
-  }
+//   } catch (error) {
+//     console.log(error.messsage)
+//   }
   
 
-      res.setHeader('Content-Type','application/json');
-      return res.status(200).json({productos});
-})
+//       res.setHeader('Content-Type','application/json');
+//       return res.status(200).json({productos});
+// })
+
+
+
 router.get('/', async(req,res)=>{
 
   let pagina = 1
@@ -42,8 +45,22 @@ router.get('/', async(req,res)=>{
 
 
 
-   
 
+  let query = {};
+  
+
+  // Verifica si se proporciona el parámetro de consulta 'querydata'
+  if (req.query.querydata) {
+    // Asigna el valor de 'querydata' al campo 'category' en el objeto de consulta
+    // query = { category: req.query.querydata };
+    query = { category: req.query.querydata };
+    console.log(query);
+  }
+  // http://localhost:8080/api/productsmongo?querydata=computo
+
+  // http://localhost:8080/api/productsmongo?limit=3
+  // http://localhost:8080/api/productsmongo?limit=3&pagina=2
+  // http://localhost:8080/api/productsmongo?limit=3&pagina=2&sort=-1
 
   let sortDirection = req.query.sort === '1' ? 1 : req.query.sort === '-1' ? -1 : undefined;  //Capturamos el valor de Sort 
 
@@ -52,7 +69,7 @@ router.get('/', async(req,res)=>{
         let productos 
         try {
           
-          productos = await productsModelo.paginate({}, {lean: true, limit:limit, page:pagina, sort: sortOptions})
+          productos = await productsModelo.paginate(query, {lean: true, limit:limit, page:pagina, sort: sortOptions})
           // productos = await productsModelo.paginate({}, {lean: true, limit:limit, page:pagina, sort: sortOptions})
   
           
@@ -62,13 +79,21 @@ router.get('/', async(req,res)=>{
         }
         
 
-        let {totalPages, page,  hasPrevPage, hasNextPage, prevPage, nextPage} = productos
+        let {totalPages, page,  hasPrevPage, hasNextPage, prevPage, nextPage, totalDocs} = productos
 
+        console.log(totalPages, hasPrevPage, hasNextPage, prevPage, nextPage, totalDocs)
+         
+        let prevLink, nextLink // agregamos los enlaces de pagina 
+        //usamos ternario 
+        (hasPrevPage) ? prevLink =`http://localhost:8080/api/productsmongo?limit=${limit}&pagina=${prevPage}&sort=${sortDirection}`  : prevLink=null;
+        (hasNextPage) ? nextLink =`http://localhost:8080/api/productsmongo?limit=${limit}&pagina=${nextPage}&sort=${sortDirection}`  : nextLink=null;
 
-
-        console.log(totalPages, hasPrevPage, hasNextPage, prevPage, nextPage)
-            
-        res.status(200).render('homepagemongo',{productos:productos.docs, limit, sortDirection, totalPages,page , hasPrevPage, hasNextPage, prevPage, nextPage});
+          res.setHeader('Content-Type','application/json');
+          return res.status(200).json({
+            status:'success',
+            payload:productos.docs,
+             limit, sortDirection, query, pagina, totalPages,page, totalDocs, hasPrevPage, hasNextPage, prevPage, nextPage, prevLink, nextLink});
+        // res.status(200).render('homepagemongo',{productos:productos.docs, limit, sortDirection, totalPages,page , hasPrevPage, hasNextPage, prevPage, nextPage});
 })
 
 router.get('/:pid', async(req,res)=>{

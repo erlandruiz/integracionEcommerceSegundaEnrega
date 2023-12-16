@@ -10,26 +10,22 @@
 <br>
 
 <br>
-{{!-- Modificando para que los datos incrementen de  /api/productsmongo/ --}}
-<a href="/api/productsmongo/?pagina=1&limit={{limit}}&sort={{sortOptions}}">Pag.1</a>
+{{!-- Modificando para que los datos incrementen de  /products/ --}}
+<a href="/products/?pagina=1">Pag.1</a>
 
 {{#if hasPrevPage}}
-<a href="/api/productsmongo/?pagina={{prevPage}}&limit={{limit}}&sort={{sortDirection}}">Pag. Ant.</a>
+    <a href="/products/?pagina={{prevPage}}">Pag. Ant.</a>
 {{else}}
 <span>Pag. Ant.</span>
 {{/if}}
 
+
 {{#if hasNextPage}}
-<a href="/api/productsmongo/?pagina={{nextPage}}&limit={{limit}}&sort={{sortDirection}}">Pag. Sig.</a>
+    <a href="/products/?pagina={{nextPage}}">Pag. Sig.</a>
 {{else}}
-<span>Pag. Sig.</span>
+    <span>Pag. Sig.</span>
 {{/if}}
 
 
 
-<a href="/api/productsmongo/?pagina={{totalPages}}&limit={{limit}}&sort={{sortDirection}}">Ult. Pag.</a>
-
-<br>
-<h4>Total Pages = {{totalPages}}</h4>
-<br>
-<h4>Pages = {{page}}</h4>
+<a href="/products/?pagina={{totalPages}}">Ult. Pag.</a>
