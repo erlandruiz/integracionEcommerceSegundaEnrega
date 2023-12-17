@@ -28,17 +28,29 @@
   <span>NOTA:Solo debe agregar un solo carrito</span>
   <br>
   <br>
-  <form>
-    {{#each carts}}
-      <label>
-        <input type="checkbox" name="cartIds" value="{{this._id}}">
-        ID: {{this._id}}
-      </label>
-      <br>
-    {{/each}}
- 
-    <button type="submit">Argregar al carrito</button>
-  </form>
+<!-- Agregamos el método POST y la acción "/add-to-cart" al formulario -->
+<form method="post" action="/api/cartsmongo/add-to-cart">
+  {{#each carts}}
+    <label>
+       <input type="radio" name="cartId" value="{{this._id}}">
+      ID: {{this._id}}
+    </label>
+    <br>
+  {{/each}}
+
+  <!-- Agregamos campos ocultos con la información del producto -->
+  <input type="hidden" name="productId" value="{{_id}}">
+  <input type="hidden" name="title" value="{{title}}">
+  <input type="hidden" name="description" value="{{description}}">
+  <input type="hidden" name="price" value="{{price}}">
+  <input type="hidden" name="thumbnail" value="{{thumbnail}}">
+  <input type="hidden" name="code" value="{{code}}">
+  <input type="hidden" name="stock" value="{{stock}}">
+  <input type="hidden" name="category" value="{{category}}">
+  <input type="hidden" name="status" value="{{status}}">
+
+  <button type="submit">Agregar al carrito</button>
+</form>
 </div>
 
 

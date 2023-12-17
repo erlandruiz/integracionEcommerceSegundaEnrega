@@ -171,11 +171,11 @@ router.get('/products/:pid',  async (req,res)=>{//Vista para mostrar el producto
 
 )
 
-router.get('/carts/:cid',  async (req,res)=>{ // para mostra solo los productos de carrito pasado por query.paramas 
+router.get('/carts/:cid',  async (req,res)=>{ // para mostra solo los productos de carrito pasado por query.params 
 
     let { cid } = req.params;
 
-  //se aplica retun al obtener error
+  //se aplica return al obtener error
   if (!mongoose.Types.ObjectId.isValid(cid)) {
     // con esta instruccion validamos que el ID sea Valido
     res.setHeader("Content-Type", "application/json");
@@ -224,6 +224,6 @@ router.get('/carts/:cid',  async (req,res)=>{ // para mostra solo los productos 
   }
   
 
-    // return res.status(200).render('cartspage',{_id,title,description,price, thumbnail, code, stock , category,status, carts}); 
+  
 
 })

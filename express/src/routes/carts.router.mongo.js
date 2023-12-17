@@ -565,3 +565,68 @@ router.delete("/:cid", async (req, res) => {
   res.setHeader("Content-Type", "tapplication/json");
   return res.status(200).json({ payload: carritoVaciar });
 });
+
+router.post('/add-to-cart', async (req, res) => { //
+  const { productId, title, description, price, thumbnail, code, stock, category, status } = req.body;
+  const cartId = req.body.cartId;
+  console.log('este es el valor de cartIds', cartId)
+
+  // Verificamos que al menos se haya seleccionado un carrito
+  if (!cartId) {
+    return res.status(400).json({ error: 'Seleccione  un carrito.' });
+  }
+
+  //Aquí debes agregar lógica para agregar el producto al carrito seleccionado (cartId).
+
+  try {
+    const resultado = await cartsModelo.findOneAndUpdate(
+      {
+        _id: cartId,
+        "products.productId": productId,
+      },
+      {
+        $inc: {
+          "products.$.qty": 1,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!resultado) {
+      // Si el producto no existe en el carrito, lo agregamos
+      const nuevoResultado = await cartsModelo.findOneAndUpdate(
+        {
+          _id: cartId,
+        },
+        {
+          $push: {
+            products: {
+              productId:productId,
+              qty: 1,
+            },
+          },
+        },
+        {
+          new: true,
+        }
+      );
+
+      console.log("Carrito actualizado:", nuevoResultado);
+        res.setHeader('Content-Type','application/json');
+        return res.status(200).json({payload: nuevoResultado});
+    } else {
+      console.log("Carrito actualizado:", resultado);
+        res.setHeader('Content-Type','application/json');
+        return res.status(200).json({payload: resultado});
+    }
+  } catch (error) {
+    console.error("Error al actualizar el carrito:", error.message);
+      res.setHeader('Content-Type','application/json');
+      return res.status(400).json({error:error.message});
+  }
+
+
+});
+
